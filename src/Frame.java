@@ -1,8 +1,14 @@
 import javax.swing.*;
+
+import org.w3c.dom.Text;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
-public class Frame extends JFrame implements ActionListener{
+public class Frame extends JFrame implements ActionListener, KeyListener{
 
     JPanel header;
     JPanel center;
@@ -13,6 +19,8 @@ public class Frame extends JFrame implements ActionListener{
     JPanel inputContainer;
 
     JTextField input;
+
+    Font f1 = new Font("Ubuntu Mono Regular", Font.PLAIN, 19);
 
     Frame(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +42,7 @@ public class Frame extends JFrame implements ActionListener{
         header.setPreferredSize(new Dimension(60, 60));
 
         center = new JPanel();
+        center.setLayout(new GridBagLayout());
         center.setBackground(Color.green);
 
         left = new JPanel();
@@ -54,6 +63,8 @@ public class Frame extends JFrame implements ActionListener{
 
         input = new JTextField();
         input.setPreferredSize(new Dimension(500, 40));
+        input.setFont(f1);
+        input.addKeyListener(this);
 
         inputContainer.add(input);
 
@@ -67,6 +78,32 @@ public class Frame extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+    
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            String str = input.getText();
+            System.out.println(str);
+
+            JLabel test = new JLabel();
+            test.setText(str);
+
+            center.add(test);
+
+            this.validate();
+            this.repaint();
+
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
     }
     
 }
