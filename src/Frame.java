@@ -7,6 +7,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class Frame extends JFrame implements ActionListener, KeyListener{
 
@@ -19,7 +20,14 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
     JPanel inputContainer;
 
     JTextField input;
+    
+    int x = 0;
+    int y = 300;
 
+    int enterCount = 0;
+    
+    ArrayList<JPanel> panels = new ArrayList<JPanel>();
+    
     Font f1 = new Font("Ubuntu Mono Regular", Font.PLAIN, 19);
 
     Frame(){
@@ -42,7 +50,7 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
         header.setPreferredSize(new Dimension(60, 60));
 
         center = new JPanel();
-        center.setLayout(new GridBagLayout());
+        center.setLayout(null);
         center.setBackground(Color.green);
 
         left = new JPanel();
@@ -87,17 +95,40 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            
             String str = input.getText();
-            System.out.println(str);
 
-            JLabel test = new JLabel();
-            test.setText(str);
+            if (str.equals("") == false) {
 
-            center.add(test);
+                
+                System.out.println(str);
+                
+                JPanel textContent = new JPanel();
+                // textContent.setBounds(x, y,700, 100);
+                textContent.setBackground(Color.blue);
+                
+                JLabel test = new JLabel();
 
-            this.validate();
-            this.repaint();
+                panels.add(textContent);
+                
+                for (int i = 0; i < panels.size(); i++) {
+                    panels.get(i).setBounds(x, y - (120 * panels.size() - i), 700, 100);
+                }
 
+                test.setText(str);
+
+                textContent.add(test);
+                center.add(textContent);
+            
+                input.setText(null);
+
+                this.validate();
+                this.repaint();
+
+                enterCount++;
+                System.out.println(panels.size()); 
+            }
+            
         }
     }
 
@@ -107,3 +138,4 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
     }
     
 }
+
