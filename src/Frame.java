@@ -19,12 +19,17 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
 
     JPanel inputContainer;
 
+    JLabel showedText;
+
     JTextField input;
     
     int x = 0;
-    int y = 300;
+    int y = 420;
+
+    int textY = 0;
 
     int enterCount = 0;
+    int lineBreak = 1;
     
     ArrayList<JPanel> panels = new ArrayList<JPanel>();
     
@@ -98,26 +103,61 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
             
             String str = input.getText();
 
-            if (str.equals("") == false) {
+            if (str.equals("") == false && input.getText().length() <= 200) {
 
                 
                 System.out.println(str);
                 
                 JPanel textContent = new JPanel();
-                // textContent.setBounds(x, y,700, 100);
-                textContent.setBackground(Color.blue);
+                textContent.setLayout(null);
+                textContent.setBackground(Color.yellow);
                 
-                JLabel test = new JLabel();
-
+                
                 panels.add(textContent);
+
                 
                 for (int i = 0; i < panels.size(); i++) {
-                    panels.get(i).setBounds(x, y - (120 * panels.size() - i), 700, 100);
+                    panels.get(i).setBounds(x, y - (120 * (panels.size() - i)), 700, 100);
+                    if (panels.get(i).getY() <= 0) {
+                        center.remove(panels.get(i));
+                        System.out.println("Panel " + i + " Removed");
+                        System.out.println(panels.get(i).getBounds());
+                    }
+                }
+                
+                
+                if (input.getText().length() >= 40) {
+                    System.out.println("Letters: " + input.getText().length());
+                    
+                        String[] chunks = str.split("(?<=\\G.{40})");
+
+                        for (String string : chunks) {
+                            System.out.println(string);
+                            String formattedText = "<html>" + 
+                            string.replaceAll("\n", "<br>") + "</html>";
+
+                            showedText = new JLabel();
+                            showedText.setSize(700, 50);
+                            showedText.setLocation(350, textY);
+                            showedText.setText(formattedText);
+                            textContent.add(showedText);
+                            textY += 15;
+                    }
+                    textY = 0;
                 }
 
-                test.setText(str);
+                else{
+                    showedText = new JLabel();
+                    showedText.setSize(700, 50);
+                    showedText.setLocation(350, 25);
+                    showedText.setText(str);
+                    textContent.add(showedText);
+                }
+                
+                    
+                    
 
-                textContent.add(test);
+                textContent.add(showedText);
                 center.add(textContent);
             
                 input.setText(null);
@@ -126,7 +166,12 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
                 this.repaint();
 
                 enterCount++;
-                System.out.println(panels.size()); 
+                System.out.println("panels size: " + panels.size()); 
+            }
+
+            else{
+                input.setText(null);
+                System.out.println("\n Text is too long");
             }
             
         }
