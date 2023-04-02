@@ -18,10 +18,11 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
     JPanel footer;
 
     JPanel inputContainer;
-
+    
     JLabel showedText;
-
+    
     JTextField input;
+    JLabel picLabel;
     
     int x = 0;
     int y = 420;
@@ -154,10 +155,12 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
                     textContent.add(showedText);
                 }
                 
-                    
-                    
+                picLabel = new JLabel(new ImageIcon("img/userLogo.png"));
+                picLabel.setSize(100, 100);
+                picLabel.setLocation(50,0);
 
                 textContent.add(showedText);
+                textContent.add(picLabel);
                 center.add(textContent);
             
                 input.setText(null);
