@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class Frame extends JFrame implements ActionListener, KeyListener{
+public class MainFrame extends JFrame implements ActionListener, KeyListener,MouseListener{
 
     JPanel header;
     JPanel center;
@@ -18,11 +18,14 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
     JPanel footer;
 
     JPanel inputContainer;
+    JPanel rightFooterSection;
+    JPanel leftFooterSection;
     
     JLabel showedText;
+    JLabel picLabel;
+    JLabel sendImgLabel;
     
     JTextField input;
-    JLabel picLabel;
     
     int x = 0;
     int y = 420;
@@ -36,7 +39,7 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
     
     Font f1 = new Font("Ubuntu Mono Regular", Font.PLAIN, 19);
 
-    Frame(){
+    MainFrame(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.setResizable(false);
@@ -67,22 +70,40 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
 
         footer = new JPanel();
         footer.setBackground(Color.white);
-        footer.setLayout(new GridBagLayout());
-        footer.setPreferredSize(new Dimension(100, 100));
+        footer.setLayout(new BorderLayout());
+        footer.setPreferredSize(new Dimension(700, 100));
 
         inputContainer = new JPanel();
         inputContainer.setBackground(Color.black);
         inputContainer.setLayout(new GridBagLayout());
-        inputContainer.setPreferredSize(new Dimension(500, 70));
+        inputContainer.setPreferredSize(new Dimension(350, 70));
+
+        rightFooterSection = new JPanel();
+        rightFooterSection.setBackground(Color.red);
+        rightFooterSection.setLayout(null);
+        rightFooterSection.setPreferredSize(new Dimension(160, 100));
+
+        leftFooterSection = new JPanel();
+        leftFooterSection.setBackground(Color.red);
+        leftFooterSection.setLayout(null);
+        leftFooterSection.setPreferredSize(new Dimension(160, 100));
 
         input = new JTextField();
-        input.setPreferredSize(new Dimension(500, 40));
+        input.setPreferredSize(new Dimension(350, 40));
         input.setFont(f1);
         input.addKeyListener(this);
 
-        inputContainer.add(input);
+        sendImgLabel = new JLabel(new ImageIcon("img/img.png"));
+        sendImgLabel.setSize(50, 50);
+        sendImgLabel.setLocation(10, 25);
+        sendImgLabel.addMouseListener(this);
 
-        footer.add(inputContainer);
+        inputContainer.add(input);
+        rightFooterSection.add(sendImgLabel);
+
+        footer.add(inputContainer, BorderLayout.CENTER);
+        footer.add(rightFooterSection, BorderLayout.EAST);
+        footer.add(leftFooterSection, BorderLayout.WEST);
 
         this.add(header, BorderLayout.NORTH);
         this.add(center, BorderLayout.CENTER);
@@ -182,6 +203,33 @@ public class Frame extends JFrame implements ActionListener, KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        System.out.println("Image clicked");
+    }
+
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
     }
     
