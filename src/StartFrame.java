@@ -31,6 +31,7 @@ public class StartFrame extends JFrame implements ActionListener{
     int height = 400;
     String usern1 = "";
     String usern2 = "";
+    String btn3Act = "";
 
     StartFrame(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,7 +86,7 @@ public class StartFrame extends JFrame implements ActionListener{
         }
     }
     
-    void checkBothBtns(){
+    public void checkBothBtns(){
         if ((usern1.equals("") && usern2.equals(""))
         ||  (usern1.equals("") && usern2.equals("") == false)
         ||  (usern1.equals("") == false && usern2.equals(""))
@@ -93,14 +94,22 @@ public class StartFrame extends JFrame implements ActionListener{
             System.out.println("Denied");
         }
         else{
-            finalBtn = new JButton();
-            finalBtn.setText("Continue");
-            finalBtn.setFont(font);
-            finalBtn.setBounds(150, 250, 100, 40);
+            getFinalBtn();
             System.out.println("Continue");
-
-            mainPanel.add(finalBtn);
+            
         }
+    }
+    
+    JButton getFinalBtn(){
+        finalBtn = new JButton();
+        finalBtn.setText("Continue");
+        finalBtn.setFont(font);
+        finalBtn.setBounds(150, 250, 100, 40);
+        finalBtn.addActionListener(this);
+        finalBtn.setActionCommand("btn3");
+        
+        mainPanel.add(finalBtn);
+        return finalBtn;   
     }
     
     @Override
@@ -115,6 +124,13 @@ public class StartFrame extends JFrame implements ActionListener{
             System.out.println("Username: " + input2.getText());
         }
 
+        else if (e.getActionCommand().equals("btn3")) {
+            new MainFrame();
+            this.dispose();
+            System.out.println("banger");
+        }
+
+        System.out.println(e.getActionCommand());
         checkBothBtns();
         this.validate();
         this.repaint();
