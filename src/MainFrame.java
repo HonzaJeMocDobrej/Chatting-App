@@ -34,9 +34,13 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
     int enterCount = 0;
     int lineBreak = 1;
+
+    String usern1 = StartFrame.usern1;
+    String usern2 = StartFrame.usern2;
     
     ArrayList<JPanel> panels = new ArrayList<JPanel>();
-    
+
+
     Font f1 = new Font("Ubuntu Mono Regular", Font.PLAIN, 19);
 
     MainFrame(){
@@ -118,6 +122,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
     @Override
     public void keyTyped(KeyEvent e) {
     }
+
     
     @Override
     public void keyPressed(KeyEvent e) {
@@ -127,7 +132,6 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
             if (str.equals("") == false && input.getText().length() <= 200) {
 
-                
                 System.out.println(str);
                 
                 JPanel textContent = new JPanel();

@@ -29,8 +29,8 @@ public class StartFrame extends JFrame implements ActionListener{
 
     int width = 400;
     int height = 400;
-    String usern1 = "";
-    String usern2 = "";
+    static String usern1 = "";
+    static String usern2 = "";
     String btn3Act = "";
 
     StartFrame(){
@@ -99,6 +99,7 @@ public class StartFrame extends JFrame implements ActionListener{
             
         }
     }
+
     
     JButton getFinalBtn(){
         finalBtn = new JButton();
@@ -120,7 +121,7 @@ public class StartFrame extends JFrame implements ActionListener{
         }
 
         else if (e.getActionCommand().equals("btn2")){
-            usern2 = input2.getText();
+            this.usern2 = input2.getText();
             System.out.println("Username: " + input2.getText());
         }
 
@@ -135,6 +136,6 @@ public class StartFrame extends JFrame implements ActionListener{
         this.validate();
         this.repaint();
     }
-    
+
     
 }
