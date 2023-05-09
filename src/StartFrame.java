@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.Console;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,18 +18,24 @@ public class StartFrame extends JFrame implements ActionListener{
 
     JTextField input1;
     JButton button1;
-    JLabel label1;
+    JLabel userLabel1;
+    JLabel userImg1;
+    JButton userImgButton1;
+
     JTextField input2;
     JButton button2;
-    JLabel label2;
+    JLabel userLabel2;
+    JPanel userLogo2;
+    JButton userImgButton2;
+
     JButton finalBtn;
     
     JPanel mainPanel;
 
     Font font = new Font("Ubuntu Mono Regular", Font.BOLD, 10);
 
-    int width = 400;
-    int height = 400;
+    int width = 600;
+    int height = 600;
     static String usern1 = "";
     static String usern2 = "";
     String btn3Act = "";
@@ -43,14 +50,23 @@ public class StartFrame extends JFrame implements ActionListener{
         mainPanel.setBackground(Color.red);
         mainPanel.setLayout(null);
 
-        setLayout(1, 55, 90, mainPanel, input1, button1, label1, usern1);
-        setLayout(2,  155, 190, mainPanel, input2, button2, label2, usern2);
+        setLayout(1, 55, 90, mainPanel, input1, button1, userLabel1, usern1);
+        setLayout(2,  255, 290, mainPanel, input2, button2, userLabel2, usern2);
         
         input1 = new JTextField();
-        input1.setBounds(50, 50, 200, 30);
+        input1.setBounds(150, 50, 200, 30);
+
+        userImg1 = new JLabel(new ImageIcon("img/userLogo.png"));
+        userImg1.setBounds(150, 80, 200, 200);
+
+        userImgButton1 = new JButton();
+        userImgButton1.setBounds(380, 80, 70, 20);
         
         input2 = new JTextField();
-        input2.setBounds(50, 150, 200, 30);
+        input2.setBounds(150, 250, 200, 30);
+        
+        userImgButton2 = new JButton();
+        userImgButton2.setBounds(380, 300, 70, 20);
         
         this.setSize(width, height);
         this.setLocationRelativeTo(null);
@@ -58,7 +74,10 @@ public class StartFrame extends JFrame implements ActionListener{
         
         
         mainPanel.add(input1);
+        mainPanel.add(userImg1);
+        mainPanel.add(userImgButton1);
         mainPanel.add(input2);
+        mainPanel.add(userImgButton2);
         this.add(mainPanel);
     }
 
@@ -66,13 +85,13 @@ public class StartFrame extends JFrame implements ActionListener{
                   JTextField input, JButton button,JLabel label, String username)
     {
         button = new JButton();
-        button.setBounds(280, btnY, 70, 20);
+        button.setBounds(380, btnY, 70, 20);
         button.setFont(font);
         button.setText("Submit");
         button.addActionListener(this);
         button.setActionCommand(String.format("btn%s", interp));
         label = new JLabel();
-        label.setBounds(80, lblY, 200, 30);
+        label.setBounds(180, lblY, 200, 30);
         label.setText(String.format("Set username for Acc %s", interp));
 
         panel.add(label);
