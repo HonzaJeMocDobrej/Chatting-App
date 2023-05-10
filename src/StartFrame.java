@@ -25,7 +25,7 @@ public class StartFrame extends JFrame implements ActionListener{
     JTextField input2;
     JButton button2;
     JLabel userLabel2;
-    JPanel userLogo2;
+    JLabel userImg2;
     JButton userImgButton2;
 
     JButton finalBtn;
@@ -59,14 +59,15 @@ public class StartFrame extends JFrame implements ActionListener{
         userImg1 = new JLabel(new ImageIcon("img/userLogo.png"));
         userImg1.setBounds(150, 80, 200, 200);
 
-        userImgButton1 = new JButton();
-        userImgButton1.setBounds(380, 80, 70, 20);
+        userImgButton1 = setImgBtn(userImgButton1, "imgBtn1", 165);
         
         input2 = new JTextField();
         input2.setBounds(150, 250, 200, 30);
+
+        userImg2 = new JLabel(new ImageIcon("img/userLogo.png"));
+        userImg2.setBounds(150, 290, 200, 200);
         
-        userImgButton2 = new JButton();
-        userImgButton2.setBounds(380, 300, 70, 20);
+        userImgButton2 = setImgBtn(userImgButton2, "imgBtn2", 380);
         
         this.setSize(width, height);
         this.setLocationRelativeTo(null);
@@ -77,6 +78,7 @@ public class StartFrame extends JFrame implements ActionListener{
         mainPanel.add(userImg1);
         mainPanel.add(userImgButton1);
         mainPanel.add(input2);
+        mainPanel.add(userImg2);
         mainPanel.add(userImgButton2);
         this.add(mainPanel);
     }
@@ -110,13 +112,22 @@ public class StartFrame extends JFrame implements ActionListener{
         ||  (usern1.equals("") && usern2.equals("") == false)
         ||  (usern1.equals("") == false && usern2.equals(""))
         ){
-            System.out.println("Denied");
+            // System.out.println("Denied");
         }
         else{
             getFinalBtn();
             System.out.println("Continue");
             
         }
+    }
+
+    public JButton setImgBtn(JButton btn, String str, int y){
+        btn = new JButton("Select");
+        btn.setFont(font);
+        btn.setBounds(380, y, 70, 20);
+        btn.setActionCommand(str);
+        btn.addActionListener(this);
+        return btn;
     }
 
     
@@ -148,6 +159,10 @@ public class StartFrame extends JFrame implements ActionListener{
             new MainFrame();
             this.dispose();
             System.out.println("banger");
+        }
+
+        else if (e.getActionCommand().equals("imgBtn1")) {
+            // System.out.println("Banger");
         }
 
         System.out.println(e.getActionCommand());
