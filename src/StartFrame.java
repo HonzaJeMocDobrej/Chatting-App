@@ -4,7 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseListener;  
 import java.io.Console;
 
 import javax.swing.ImageIcon;
@@ -39,6 +39,10 @@ public class StartFrame extends JFrame implements ActionListener{
     static String usern1 = "";
     static String usern2 = "";
     String btn3Act = "";
+
+    static boolean isOpened = false;
+
+    ImgChooser imgChooser;
 
     StartFrame(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,6 +167,16 @@ public class StartFrame extends JFrame implements ActionListener{
 
         else if (e.getActionCommand().equals("imgBtn1")) {
             // System.out.println("Banger");
+            if (isOpened == false) {
+                imgChooser = new ImgChooser();
+                isOpened = true;
+            }
+
+            else if (isOpened == true) {
+                imgChooser.dispose();
+                isOpened = false;
+            }
+            
         }
 
         System.out.println(e.getActionCommand());
@@ -171,5 +185,4 @@ public class StartFrame extends JFrame implements ActionListener{
         this.repaint();
     }
 
-    
 }
