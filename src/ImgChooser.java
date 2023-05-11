@@ -117,7 +117,9 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            img.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+            for (JLabel jLabel : imgLabels) {
+                jLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
         }
 
         @Override
