@@ -19,7 +19,7 @@ public class StartFrame extends JFrame implements ActionListener{
     JTextField input1;
     JButton button1;
     JLabel userLabel1;
-    JLabel userImg1;
+    static JLabel userImg1;
     JButton userImgButton1;
 
     JTextField input2;
@@ -45,6 +45,10 @@ public class StartFrame extends JFrame implements ActionListener{
     ImgChooser imgChooser;
 
     StartFrame(){
+        
+    }
+
+    public void createFrame(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(null);
@@ -60,7 +64,8 @@ public class StartFrame extends JFrame implements ActionListener{
         input1 = new JTextField();
         input1.setBounds(150, 50, 200, 30);
 
-        userImg1 = new JLabel(new ImageIcon("img/userLogo.png"));
+        userImg1 = new JLabel();
+        userImg1.setIcon(new ImageIcon(ImgChooser.firstActiveImg));
         userImg1.setBounds(150, 80, 200, 200);
 
         userImgButton1 = setImgBtn(userImgButton1, "imgBtn1", 165);
@@ -68,7 +73,8 @@ public class StartFrame extends JFrame implements ActionListener{
         input2 = new JTextField();
         input2.setBounds(150, 250, 200, 30);
 
-        userImg2 = new JLabel(new ImageIcon("img/userLogo.png"));
+        userImg2 = new JLabel();
+        userImg2.setIcon(new ImageIcon(ImgChooser.firstActiveImg));
         userImg2.setBounds(150, 290, 200, 200);
         
         userImgButton2 = setImgBtn(userImgButton2, "imgBtn2", 380);
@@ -85,10 +91,18 @@ public class StartFrame extends JFrame implements ActionListener{
         mainPanel.add(userImg2);
         mainPanel.add(userImgButton2);
         this.add(mainPanel);
+        
+        this.repaint();
+        this.revalidate();
     }
 
+    public void refresh(){
+        this.repaint();
+        this.revalidate();
+    }
+    
     void setLayout(int interp,  int btnY, int lblY, JPanel panel, 
-                  JTextField input, JButton button,JLabel label, String username)
+    JTextField input, JButton button,JLabel label, String username)
     {
         button = new JButton();
         button.setBounds(380, btnY, 70, 20);
@@ -99,7 +113,7 @@ public class StartFrame extends JFrame implements ActionListener{
         label = new JLabel();
         label.setBounds(180, lblY, 200, 30);
         label.setText(String.format("Set username for Acc %s", interp));
-
+        
         panel.add(label);
         panel.add(button);
     }
@@ -166,7 +180,6 @@ public class StartFrame extends JFrame implements ActionListener{
         }
 
         else if (e.getActionCommand().equals("imgBtn1")) {
-            // System.out.println("Banger");
             if (isOpened == false) {
                 imgChooser = new ImgChooser();
                 isOpened = true;
@@ -178,6 +191,7 @@ public class StartFrame extends JFrame implements ActionListener{
             }
             
         }
+
 
         System.out.println(e.getActionCommand());
         checkBothBtns();

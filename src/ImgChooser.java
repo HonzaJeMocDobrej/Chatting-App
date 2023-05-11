@@ -27,6 +27,7 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
                         };
 
     JLabel[] imgLabels = new JLabel[16];
+    public static String firstActiveImg = "img/userLogo.png";
     
     ImgChooser(){
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -44,7 +45,7 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
         this.addWindowListener(this);
         this.setVisible(true);
 
-        for (int i = 1; i <= 16; i++) {
+        for (int i = 1; i <= pathArr.length; i++) {
             imgLabels[i-1] = setImg(i, labelX, labelY, pathArr[i-1], i);
             labelX += 100;
 
@@ -57,14 +58,15 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
         this.add(bg);
     }
 
-    public JLabel setImg(int arg, int x, int y, String path, int i){
+    public JLabel setImg(int arg, int x, int y, String path, int index){
         img = new JLabel(new ImageIcon(path));
         img.setOpaque(true);
         img.setBackground(Color.black);
         img.setBounds(x, y, 100, 100);
         img.addMouseListener(this);
 
-        int index = i;
+        img.setName(String.format("%s", index));
+
         
         bg.add(img);
 
@@ -104,7 +106,17 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println(imgLabels[2]);
+            for (int i = 0; i < imgLabels.length; i++) {
+                if (e.getSource() == imgLabels[i]) {
+                    System.out.println(pathArr[i]);
+                    firstActiveImg = pathArr[i];
+                    StartFrame.isOpened = false;
+                    StartFrame obj = new StartFrame();
+                    StartFrame.userImg1.setIcon(new ImageIcon(ImgChooser.firstActiveImg));
+                    obj.refresh();
+                    this.dispose();
+                }
+            }
         }
 
         @Override
