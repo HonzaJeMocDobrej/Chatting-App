@@ -25,8 +25,11 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
     JLabel picLabel;
     JLabel sendImgLabel;
     JLabel usernLabel;
+    JLabel showTopUsern;
     
     JTextField input;
+
+    JButton switchUser;
     
     int x = 0;
     int y = 420;
@@ -36,12 +39,12 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
     int enterCount = 0;
     int lineBreak = 1;
 
-    String usern1 = StartFrame.usern1;
-    String usern2 = StartFrame.usern2;
-    public static String imgPath = "img/userLogo.png";
+    static String imgPath = "img/userLogo.png";
+    String usern = StartFrame.usern1;
+
+    static boolean isUser1 = true;
     
     ArrayList<JPanel> panels = new ArrayList<JPanel>();
-
 
     Font f1 = new Font("Ubuntu Mono Regular", Font.PLAIN, 19);
 
@@ -62,7 +65,8 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
     void mainGuiContent(){
         header = new JPanel();
         header.setBackground(Color.white);
-        header.setPreferredSize(new Dimension(60, 60));
+        header.setLayout(new GridBagLayout());
+        header.setPreferredSize(new Dimension(700, 60));
 
         center = new JPanel();
         center.setLayout(null);
@@ -99,17 +103,30 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
         input.setFont(f1);
         input.addKeyListener(this);
 
+        showTopUsern = new JLabel(usern);
+        showTopUsern.setBounds(200, 20, 200, 20);
+        showTopUsern.setFont(new Font("Ubuntu Mono Regular", Font.PLAIN, 25));
+
         sendImgLabel = new JLabel(new ImageIcon("img/img.png"));
         sendImgLabel.setSize(50, 50);
         sendImgLabel.setLocation(10, 25);
         sendImgLabel.addMouseListener(this);
 
+        switchUser = new JButton();
+        switchUser.setBounds(30, 35, 100, 30);
+        switchUser.setText("Switch user");
+        switchUser.setFont(new Font("Ubuntu Mono Regular", Font.PLAIN, 12));
+        switchUser.addMouseListener(this);
+
         inputContainer.add(input);
         rightFooterSection.add(sendImgLabel);
+        leftFooterSection.add(switchUser);
 
         footer.add(inputContainer, BorderLayout.CENTER);
         footer.add(rightFooterSection, BorderLayout.EAST);
         footer.add(leftFooterSection, BorderLayout.WEST);
+
+        header.add(showTopUsern);
 
         this.add(header, BorderLayout.NORTH);
         this.add(center, BorderLayout.CENTER);
@@ -189,7 +206,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
                 usernLabel = new JLabel();
                 usernLabel.setFont(new Font("Monospaced", Font.PLAIN, 20));
-                usernLabel.setText(StartFrame.usern1);
+                usernLabel.setText(usern);
                 usernLabel.setSize(180, 50);
                 usernLabel.setLocation(170, 23);
 
@@ -215,6 +232,13 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
         }
     }
 
+    void setParams(String path, String mainFrameUsern, Boolean checkUsr){
+        imgPath = path;
+        usern = mainFrameUsern;
+        isUser1 = checkUsr;
+        showTopUsern.setText(mainFrameUsern);
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
         // TODO Auto-generated method stub
@@ -222,8 +246,19 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        System.out.println("Image clicked");
+        if (e.getSource() == sendImgLabel) {
+            System.out.println("Image clicked");
+        }
+
+        if (e.getSource() == switchUser) {
+            System.out.println(isUser1);
+            if (isUser1 == true) {
+                setParams(ImgChooser.secondActiveImg, StartFrame.usern2, false);
+            }
+            else if (isUser1 == false) {
+                setParams(ImgChooser.firstActiveImg, StartFrame.usern1, true);
+            }
+        }
     }
 
 

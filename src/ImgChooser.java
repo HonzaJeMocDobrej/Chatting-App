@@ -74,7 +74,6 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
         return img;
     }
 
-    
         @Override
         public void windowOpened(WindowEvent e) {
         }
@@ -121,7 +120,6 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
                     if (StartFrame.imgChooser2 != null && StartFrame.imgChooser2.isActive()) {
                         secondActiveImg = pathArr[i];
                         StartFrame.userImg2.setIcon(new ImageIcon(ImgChooser.secondActiveImg));
-                        // MainFrame.imgPath = secondActiveImg;
                     }
                     obj.refresh();
                     this.dispose();
