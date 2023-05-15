@@ -24,6 +24,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
     JLabel showedText;
     JLabel picLabel;
     JLabel sendImgLabel;
+    JLabel usernLabel;
     
     JTextField input;
     
@@ -37,6 +38,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
     String usern1 = StartFrame.usern1;
     String usern2 = StartFrame.usern2;
+    public static String imgPath = "img/userLogo.png";
     
     ArrayList<JPanel> panels = new ArrayList<JPanel>();
 
@@ -180,12 +182,20 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                     textContent.add(showedText);
                 }
                 
-                picLabel = new JLabel(new ImageIcon("img/userLogo.png"));
+                picLabel = new JLabel();
+                picLabel.setIcon(new ImageIcon(imgPath));
                 picLabel.setSize(100, 100);
                 picLabel.setLocation(50,0);
 
+                usernLabel = new JLabel();
+                usernLabel.setFont(new Font("Monospaced", Font.PLAIN, 20));
+                usernLabel.setText(StartFrame.usern1);
+                usernLabel.setSize(180, 50);
+                usernLabel.setLocation(170, 23);
+
                 textContent.add(showedText);
                 textContent.add(picLabel);
+                textContent.add(usernLabel);
                 center.add(textContent);
             
                 input.setText(null);

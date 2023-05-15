@@ -28,6 +28,7 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
 
     JLabel[] imgLabels = new JLabel[16];
     public static String firstActiveImg = "img/userLogo.png";
+    public static String secondActiveImg = "img/userLogo.png";
     
     ImgChooser(){
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -80,8 +81,8 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
     
         @Override
         public void windowClosing(WindowEvent e) {
-            StartFrame.isOpened = false;
-            System.out.println(StartFrame.isOpened);
+            StartFrame.isOpened1 = false;
+            System.out.println(StartFrame.isOpened1);
         }
     
         @Override
@@ -109,10 +110,19 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
             for (int i = 0; i < imgLabels.length; i++) {
                 if (e.getSource() == imgLabels[i]) {
                     System.out.println(pathArr[i]);
-                    firstActiveImg = pathArr[i];
-                    StartFrame.isOpened = false;
+                    StartFrame.isOpened1 = false;
                     StartFrame obj = new StartFrame();
-                    StartFrame.userImg1.setIcon(new ImageIcon(ImgChooser.firstActiveImg));
+                    if (StartFrame.imgChooser1 != null && StartFrame.imgChooser1.isActive()) {
+                        firstActiveImg = pathArr[i];
+                        StartFrame.userImg1.setIcon(new ImageIcon(ImgChooser.firstActiveImg));
+                        MainFrame.imgPath = firstActiveImg;
+                    }
+
+                    if (StartFrame.imgChooser2 != null && StartFrame.imgChooser2.isActive()) {
+                        secondActiveImg = pathArr[i];
+                        StartFrame.userImg2.setIcon(new ImageIcon(ImgChooser.secondActiveImg));
+                        // MainFrame.imgPath = secondActiveImg;
+                    }
                     obj.refresh();
                     this.dispose();
                 }

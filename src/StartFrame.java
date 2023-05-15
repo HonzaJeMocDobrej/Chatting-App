@@ -25,7 +25,7 @@ public class StartFrame extends JFrame implements ActionListener{
     JTextField input2;
     JButton button2;
     JLabel userLabel2;
-    JLabel userImg2;
+    static JLabel userImg2;
     JButton userImgButton2;
 
     JButton finalBtn;
@@ -40,9 +40,11 @@ public class StartFrame extends JFrame implements ActionListener{
     static String usern2 = "";
     String btn3Act = "";
 
-    static boolean isOpened = false;
+    static boolean isOpened1 = false;
+    static boolean isOpened2 = false;
 
-    ImgChooser imgChooser;
+    static ImgChooser imgChooser1;
+    static ImgChooser imgChooser2;
 
     StartFrame(){
         
@@ -74,7 +76,7 @@ public class StartFrame extends JFrame implements ActionListener{
         input2.setBounds(150, 250, 200, 30);
 
         userImg2 = new JLabel();
-        userImg2.setIcon(new ImageIcon(ImgChooser.firstActiveImg));
+        userImg2.setIcon(new ImageIcon(ImgChooser.secondActiveImg));
         userImg2.setBounds(150, 290, 200, 200);
         
         userImgButton2 = setImgBtn(userImgButton2, "imgBtn2", 380);
@@ -153,7 +155,7 @@ public class StartFrame extends JFrame implements ActionListener{
         finalBtn = new JButton();
         finalBtn.setText("Continue");
         finalBtn.setFont(font);
-        finalBtn.setBounds(150, 250, 100, 40);
+        finalBtn.setBounds(250, 500, 100, 40);
         finalBtn.addActionListener(this);
         finalBtn.setActionCommand("btn3");
         
@@ -180,14 +182,29 @@ public class StartFrame extends JFrame implements ActionListener{
         }
 
         else if (e.getActionCommand().equals("imgBtn1")) {
-            if (isOpened == false) {
-                imgChooser = new ImgChooser();
-                isOpened = true;
+            System.out.println(isOpened1);
+            if (isOpened1 == false) {
+                imgChooser1 = new ImgChooser();
+                isOpened1 = true;
             }
 
-            else if (isOpened == true) {
-                imgChooser.dispose();
-                isOpened = false;
+            else if (isOpened1 == true) {
+                imgChooser1.dispose();
+                isOpened1 = false;
+            }
+            
+        }
+
+        else if (e.getActionCommand().equals("imgBtn2")) {
+            System.out.println(isOpened2);
+            if (isOpened2 == false) {
+                imgChooser2 = new ImgChooser();
+                isOpened2 = true;
+            }
+
+            else if (isOpened2 == true) {
+                imgChooser2.dispose();
+                isOpened2 = false;
             }
             
         }
