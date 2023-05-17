@@ -59,7 +59,7 @@ public class StartFrame extends JFrame implements ActionListener{
         
         mainPanel = new JPanel();
         mainPanel.setBounds(0, 0, width, height);
-        mainPanel.setBackground(Color.red);
+        mainPanel.setBackground(Color.decode("#474448"));
         mainPanel.setLayout(null);
 
         setLayout(1, 55, 90, mainPanel, input1, button1, userLabel1, usern1);
@@ -80,7 +80,13 @@ public class StartFrame extends JFrame implements ActionListener{
         userImg2 = new JLabel();
         userImg2.setIcon(new ImageIcon(ImgChooser.secondActiveImg));
         userImg2.setBounds(150, 290, 200, 200);
-        
+
+        warning = new JLabel();
+        warning.setText("Username cannot be longer than 13 characters");
+        warning.setForeground(Color.white);
+        warning.setBounds(150, 500, 300, 50);
+        warning.setVisible(false);
+
         userImgButton2 = setImgBtn(userImgButton2, "imgBtn2", 380);
         
         this.setSize(width, height);
@@ -94,6 +100,7 @@ public class StartFrame extends JFrame implements ActionListener{
         mainPanel.add(input2);
         mainPanel.add(userImg2);
         mainPanel.add(userImgButton2);
+        mainPanel.add(warning);
         this.add(mainPanel);
         
         this.repaint();
@@ -165,24 +172,14 @@ public class StartFrame extends JFrame implements ActionListener{
         return finalBtn;   
     }
 
-    JLabel setgetWarning(){
-        warning = new JLabel();
-        warning.setText("Username cannot be longer than 13 characters");
-        warning.setForeground(Color.white);
-        warning.setBounds(150, 500, 300, 50);
-
-        mainPanel.add(warning);
-        return warning;
-    }
-
     void warningVanish(){
-        mainPanel.remove(warning);
+        warning.setVisible(false);
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("btn1")) {
-            if (input1.getText().length() <= 13) {
+            if (input1.getText().length() <= 13 && input1.getText().length() != 0) {
                 usern1 = input1.getText();
                 if (warning != null) {
                     warningVanish();
@@ -190,14 +187,14 @@ public class StartFrame extends JFrame implements ActionListener{
             }
             else{
                 input1.setText("");
-                setgetWarning();
+                warning.setVisible(true);
                 System.out.println("Text is too long");
             }
             System.out.println("Username: " + input1.getText());
         }
 
         else if (e.getActionCommand().equals("btn2")){
-            if (input2.getText().length() <= 13) {
+            if (input2.getText().length() <= 13 && input2.getText().length() != 0) {
                 usern2 = input2.getText();
                 if (warning != null) {
                     warningVanish();
@@ -205,7 +202,7 @@ public class StartFrame extends JFrame implements ActionListener{
             }
             else{
                 input2.setText("");
-                setgetWarning();
+                warning.setVisible(true);
                 System.out.println("Text is too long");
             }
             System.out.println("Username: " + input2.getText());
