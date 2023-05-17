@@ -4,7 +4,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;  
+import java.awt.event.MouseListener;
+import java.awt.font.TextAttribute;  
 import java.io.Console;
 
 import javax.swing.ImageIcon;
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 
 public class StartFrame extends JFrame implements ActionListener{
 
@@ -32,7 +34,7 @@ public class StartFrame extends JFrame implements ActionListener{
     
     JPanel mainPanel;
 
-    Font font = new Font("Ubuntu Mono Regular", Font.BOLD, 10);
+    Font font = new Font("Poppins.ttf", Font.PLAIN, 15);
 
     int width = 600;
     int height = 600;
@@ -59,13 +61,14 @@ public class StartFrame extends JFrame implements ActionListener{
         
         mainPanel = new JPanel();
         mainPanel.setBounds(0, 0, width, height);
-        mainPanel.setBackground(Color.decode("#474448"));
+        mainPanel.setBackground(Color.decode("#474747"));
         mainPanel.setLayout(null);
 
-        setLayout(1, 55, 90, mainPanel, input1, button1, userLabel1, usern1);
-        setLayout(2,  255, 290, mainPanel, input2, button2, userLabel2, usern2);
+        setLayout(1, 51, 90, mainPanel, input1, button1, userLabel1, usern1);
+        setLayout(2,  251, 290, mainPanel, input2, button2, userLabel2, usern2);
         
         input1 = new JTextField();
+        input1.setBorder(null);
         input1.setBounds(150, 50, 200, 30);
 
         userImg1 = new JLabel();
@@ -75,6 +78,7 @@ public class StartFrame extends JFrame implements ActionListener{
         userImgButton1 = setImgBtn(userImgButton1, "imgBtn1", 165);
         
         input2 = new JTextField();
+        input2.setBorder(null);
         input2.setBounds(150, 250, 200, 30);
 
         userImg2 = new JLabel();
@@ -116,14 +120,14 @@ public class StartFrame extends JFrame implements ActionListener{
     JTextField input, JButton button,JLabel label, String username)
     {
         button = new JButton();
-        button.setBounds(380, btnY, 70, 20);
-        button.setFont(font);
-        button.setText("Submit");
+        setBtnDesign(button, btnY, 380, "Submit");
         button.addActionListener(this);
         button.setActionCommand(String.format("btn%s", interp));
         label = new JLabel();
         label.setBounds(180, lblY, 200, 30);
         label.setText(String.format("Set username for Acc %s", interp));
+        label.setForeground(Color.white);
+        label.setFont(font);
         
         panel.add(label);
         panel.add(button);
@@ -151,9 +155,8 @@ public class StartFrame extends JFrame implements ActionListener{
     }
 
     public JButton setImgBtn(JButton btn, String str, int y){
-        btn = new JButton("Select");
-        btn.setFont(font);
-        btn.setBounds(380, y, 70, 20);
+        btn = new JButton();
+        setBtnDesign(btn, y, 380, "Select");
         btn.setActionCommand(str);
         btn.addActionListener(this);
         return btn;
@@ -174,6 +177,14 @@ public class StartFrame extends JFrame implements ActionListener{
 
     void warningVanish(){
         warning.setVisible(false);
+    }
+    void setBtnDesign(JButton button, int btnY, int btnX, String string){
+        button.setBounds(btnX, btnY, 100, 30);
+        button.setFont(font);
+        button.setText(string);
+        button.setBackground(Color.decode("#4685ff"));
+        button.setBorder(null);
+        button.setForeground(Color.white);
     }
     
     @Override
