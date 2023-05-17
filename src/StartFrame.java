@@ -46,6 +46,8 @@ public class StartFrame extends JFrame implements ActionListener{
     static ImgChooser imgChooser1;
     static ImgChooser imgChooser2;
 
+    JLabel warning;
+
     StartFrame(){
         
     }
@@ -162,16 +164,50 @@ public class StartFrame extends JFrame implements ActionListener{
         mainPanel.add(finalBtn);
         return finalBtn;   
     }
+
+    JLabel setgetWarning(){
+        warning = new JLabel();
+        warning.setText("Username cannot be longer than 13 characters");
+        warning.setForeground(Color.white);
+        warning.setBounds(150, 500, 300, 50);
+
+        mainPanel.add(warning);
+        return warning;
+    }
+
+    void warningVanish(){
+        mainPanel.remove(warning);
+    }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("btn1")) {
-            usern1 = input1.getText();
+            if (input1.getText().length() <= 13) {
+                usern1 = input1.getText();
+                if (warning != null) {
+                    warningVanish();
+                }
+            }
+            else{
+                input1.setText("");
+                setgetWarning();
+                System.out.println("Text is too long");
+            }
             System.out.println("Username: " + input1.getText());
         }
 
         else if (e.getActionCommand().equals("btn2")){
-            this.usern2 = input2.getText();
+            if (input2.getText().length() <= 13) {
+                usern2 = input2.getText();
+                if (warning != null) {
+                    warningVanish();
+                }
+            }
+            else{
+                input2.setText("");
+                setgetWarning();
+                System.out.println("Text is too long");
+            }
             System.out.println("Username: " + input2.getText());
         }
 

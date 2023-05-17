@@ -20,6 +20,8 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
     JPanel inputContainer;
     JPanel rightFooterSection;
     JPanel leftFooterSection;
+    JPanel textContent1;
+    JPanel textContent;
     
     JLabel showedText;
     JLabel picLabel;
@@ -41,12 +43,14 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
     static String imgPath = "img/userLogo.png";
     String usern = StartFrame.usern1;
+    String colorS = "#ade8f4";
 
     static boolean isUser1 = true;
     
     ArrayList<JPanel> panels = new ArrayList<JPanel>();
 
     Font f1 = new Font("Ubuntu Mono Regular", Font.PLAIN, 19);
+    
 
     MainFrame(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +74,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
         center = new JPanel();
         center.setLayout(null);
-        center.setBackground(Color.green);
+        center.setBackground(Color.white);
 
         left = new JPanel();
         left.setBackground(Color.yellow);
@@ -153,12 +157,12 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
                 System.out.println(str);
                 
-                JPanel textContent = new JPanel();
-                textContent.setLayout(null);
-                textContent.setBackground(Color.yellow);
+                textContent1 = new JPanel();
+                textContent1.setLayout(null);
+                textContent1.setBackground(Color.decode(colorS));
                 
                 
-                panels.add(textContent);
+                panels.add(textContent1);
 
                 
                 for (int i = 0; i < panels.size(); i++) {
@@ -185,7 +189,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                             showedText.setSize(700, 50);
                             showedText.setLocation(350, textY);
                             showedText.setText(formattedText);
-                            textContent.add(showedText);
+                            textContent1.add(showedText);
                             textY += 15;
                     }
                     textY = 0;
@@ -196,7 +200,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                     showedText.setSize(700, 50);
                     showedText.setLocation(350, 25);
                     showedText.setText(str);
-                    textContent.add(showedText);
+                    textContent1.add(showedText);
                 }
                 
                 picLabel = new JLabel();
@@ -210,10 +214,10 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                 usernLabel.setSize(180, 50);
                 usernLabel.setLocation(170, 23);
 
-                textContent.add(showedText);
-                textContent.add(picLabel);
-                textContent.add(usernLabel);
-                center.add(textContent);
+                textContent1.add(showedText);
+                textContent1.add(picLabel);
+                textContent1.add(usernLabel);
+                center.add(textContent1);
             
                 input.setText(null);
 
@@ -254,9 +258,11 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
             System.out.println(isUser1);
             if (isUser1 == true) {
                 setParams(ImgChooser.secondActiveImg, StartFrame.usern2, false);
+                colorS = "#0077b6";
             }
             else if (isUser1 == false) {
                 setParams(ImgChooser.firstActiveImg, StartFrame.usern1, true);
+                colorS = "#ade8f4";
             }
         }
     }
