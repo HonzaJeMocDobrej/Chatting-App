@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.*;
 
 
 public class StartFrame extends JFrame implements ActionListener{
@@ -36,7 +37,7 @@ public class StartFrame extends JFrame implements ActionListener{
     
     JPanel mainPanel;
 
-    Font font = new Font("Poppins.ttf", Font.PLAIN, 15);
+    public static Font font = new Font("Poppins.ttf", Font.PLAIN, 15);
 
     int width = 600;
     int height = 600;
@@ -52,6 +53,9 @@ public class StartFrame extends JFrame implements ActionListener{
 
     JLabel warning;
 
+    Border empty = new EmptyBorder(0, 10, 0, 0);
+    CompoundBorder border = new CompoundBorder(empty, empty);
+
     StartFrame(){
         
     }
@@ -60,6 +64,8 @@ public class StartFrame extends JFrame implements ActionListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(null);
+        this.setTitle("Create User");
+        this.setIconImage(ImgChooser.icon.getImage());
         
         mainPanel = new JPanel();
         mainPanel.setBounds(0, 0, width, height);
@@ -70,7 +76,7 @@ public class StartFrame extends JFrame implements ActionListener{
         setLayout(2,  251, 290, mainPanel, input2, button2, userLabel2, usern2);
         
         input1 = new JTextField();
-        input1.setMargin(new Insets(0, 10, 0, 0));
+        input1.setBorder(border);
         input1.setBounds(150, 50, 200, 30);
 
         userImg1 = new JLabel();
@@ -80,7 +86,7 @@ public class StartFrame extends JFrame implements ActionListener{
         userImgButton1 = setImgBtn(userImgButton1, "imgBtn1", 165);
         
         input2 = new JTextField();
-        input2.setMargin(new Insets(0, 10, 0, 0));
+        input2.setBorder(border);
         input2.setBounds(150, 250, 200, 30);
 
         userImg2 = new JLabel();
@@ -143,7 +149,7 @@ public class StartFrame extends JFrame implements ActionListener{
     }
     
     public void checkBothBtns(){
-        if ((usern1.equals("") && usern2.equals(""))
+        if ((input1.equals("") && usern2.equals(""))
         ||  (usern1.equals("") && usern2.equals("") == false)
         ||  (usern1.equals("") == false && usern2.equals(""))
         ){
@@ -166,27 +172,40 @@ public class StartFrame extends JFrame implements ActionListener{
 
     
     JButton getFinalBtn(){
-        finalBtn = new JButton();
-        setBtnDesign(finalBtn, 500, 250, "Continue");
-        finalBtn.addActionListener(this);
-        finalBtn.setActionCommand("btn3");
-        
-        mainPanel.add(finalBtn);
-        return finalBtn;   
+        if (input1.getText().equals(input2.getText()) && input1.getText().equals("") == false && input2.getText().equals("") == false) {
+            warning.setVisible(true);
+            warning.setText("Cannot have identical usernames");
+            input1.setText("");
+            input2.setText("");
+            return null;
+        }
+        else if (input1.getText().equals("") == true && input2.getText().equals("") == true) {
+            return null;
+        }
+        else{
+            finalBtn = new JButton();
+            setBtnDesign(finalBtn, 500, 250, "Continue");
+            finalBtn.addActionListener(this);
+            finalBtn.setActionCommand("btn3");
+            
+            mainPanel.add(finalBtn);
+            return finalBtn;   
+        }
     }
 
     void warningVanish(){
         warning.setVisible(false);
     }
-    void setBtnDesign(JButton button, int btnY, int btnX, String string){
+    public static void setBtnDesign(JButton button, int btnY, int btnX, String string){
         button.setBounds(btnX, btnY, 100, 30);
-        button.setFont(font);
+        button.setFont(StartFrame.font);
         button.setText(string);
         button.setBackground(Color.decode("#4685ff"));
         button.setBorder(null);
         button.setForeground(Color.white);
         button.setFocusPainted(false);
     }
+    
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -200,6 +219,7 @@ public class StartFrame extends JFrame implements ActionListener{
             else{
                 input1.setText("");
                 warning.setVisible(true);
+                warning.setText("Username cannot be longer than 13 characters");
                 System.out.println("Text is too long");
             }
             System.out.println("Username: " + input1.getText());
@@ -215,6 +235,7 @@ public class StartFrame extends JFrame implements ActionListener{
             else{
                 input2.setText("");
                 warning.setVisible(true);
+                warning.setText("Username cannot be longer than 13 characters");
                 System.out.println("Text is too long");
             }
             System.out.println("Username: " + input2.getText());

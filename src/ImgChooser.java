@@ -29,12 +29,16 @@ public class ImgChooser extends JFrame implements WindowListener, MouseListener 
     JLabel[] imgLabels = new JLabel[16];
     public static String firstActiveImg = "img/userLogo.png";
     public static String secondActiveImg = "img/userLogo.png";
+
+    static ImageIcon icon = new ImageIcon("img/icon.png");
     
     ImgChooser(){
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(410, 435);
         this.setLayout(null);
         this.setLocationRelativeTo(null);
+        this.setTitle("Image Selector");
+        this.setIconImage(icon.getImage());
         
 
         bg = new JPanel();

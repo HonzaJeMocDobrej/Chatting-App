@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.plaf.TreeUI;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import org.w3c.dom.Text;
 
@@ -28,34 +30,44 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
     JLabel sendImgLabel;
     JLabel usernLabel;
     JLabel showTopUsern;
+    JLabel errorLabel;
+
+    JScrollPane scroll;
     
     JTextField input;
 
-    JButton switchUser;
+    JButton switchUser1;
+    JButton switchUser2;
     
     int x = 0;
-    int y = 420;
+    int y = -95;
 
     int textY = 0;
+    int centerY = 395;
 
     int enterCount = 0;
     int lineBreak = 1;
 
     static String imgPath = "img/userLogo.png";
     String usern = StartFrame.usern1;
-    String colorS = "#ade8f4";
+    String colorPanel = "#ade8f4";
+    String colorHeadFoot = "#f2f2f2";
 
     static boolean isUser1 = true;
     
     ArrayList<JPanel> panels = new ArrayList<JPanel>();
 
-    Font f1 = new Font("Ubuntu Mono Regular", Font.PLAIN, 19);
+    Font f1 = StartFrame.font;
+
+    ImageIcon icon = new ImageIcon("img/chatIcon.png");
     
 
     MainFrame(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.setResizable(false);
+        this.setTitle("Chat App");
+        this.setIconImage(icon.getImage());
         
         mainGuiContent();
 
@@ -68,19 +80,20 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
     void mainGuiContent(){
         header = new JPanel();
-        header.setBackground(Color.white);
+        header.setBackground(Color.decode(colorHeadFoot));
         header.setLayout(new GridBagLayout());
         header.setPreferredSize(new Dimension(700, 60));
 
         center = new JPanel();
         center.setLayout(null);
         center.setBackground(Color.white);
+        center.setPreferredSize(new Dimension(600, centerY));
 
         left = new JPanel();
         left.setBackground(Color.yellow);
 
         right = new JPanel();
-        right.setBackground(Color.red);
+        right.setBackground(Color.decode(colorHeadFoot));
 
         footer = new JPanel();
         footer.setBackground(Color.white);
@@ -88,43 +101,71 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
         footer.setPreferredSize(new Dimension(700, 100));
 
         inputContainer = new JPanel();
-        inputContainer.setBackground(Color.black);
+        inputContainer.setBackground(Color.decode(colorHeadFoot));
         inputContainer.setLayout(new GridBagLayout());
         inputContainer.setPreferredSize(new Dimension(350, 70));
 
         rightFooterSection = new JPanel();
-        rightFooterSection.setBackground(Color.red);
+        rightFooterSection.setBackground(Color.decode(colorHeadFoot));
         rightFooterSection.setLayout(null);
         rightFooterSection.setPreferredSize(new Dimension(160, 100));
 
         leftFooterSection = new JPanel();
-        leftFooterSection.setBackground(Color.red);
+        leftFooterSection.setBackground(Color.decode(colorHeadFoot));
         leftFooterSection.setLayout(null);
         leftFooterSection.setPreferredSize(new Dimension(160, 100));
 
         input = new JTextField();
         input.setPreferredSize(new Dimension(350, 40));
         input.setFont(f1);
+        input.setMargin(new Insets(0, 10, 0, 0));
         input.addKeyListener(this);
 
         showTopUsern = new JLabel(usern);
         showTopUsern.setBounds(200, 20, 200, 20);
-        showTopUsern.setFont(new Font("Ubuntu Mono Regular", Font.PLAIN, 25));
+        showTopUsern.setFont(new Font("Poppins.ttf", Font.BOLD, 25));
 
         sendImgLabel = new JLabel(new ImageIcon("img/img.png"));
         sendImgLabel.setSize(50, 50);
         sendImgLabel.setLocation(10, 25);
         sendImgLabel.addMouseListener(this);
 
-        switchUser = new JButton();
-        switchUser.setBounds(30, 35, 100, 30);
-        switchUser.setText("Switch user");
-        switchUser.setFont(new Font("Ubuntu Mono Regular", Font.PLAIN, 12));
-        switchUser.addMouseListener(this);
+        switchUser1 = new JButton();
+        StartFrame.setBtnDesign(switchUser1, 35, 30, "Switch user");
+        switchUser1.addMouseListener(this);
+        
+        switchUser2 = new JButton();
+        StartFrame.setBtnDesign(switchUser2, 35, 30, "Switch user");
+        switchUser2.addMouseListener(this);
+
+        scroll = new JScrollPane(center);
+        scroll.setBorder(null);
+        scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI(){
+            protected JButton noButtons(){
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                return button;
+            }
+
+                @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = Color.decode("#9c9c9c");
+            }
+            
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return noButtons();
+            }
+            
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return noButtons();
+            }
+        });
 
         inputContainer.add(input);
-        rightFooterSection.add(sendImgLabel);
-        leftFooterSection.add(switchUser);
+        rightFooterSection.add(switchUser2);
+        leftFooterSection.add(switchUser1);
 
         footer.add(inputContainer, BorderLayout.CENTER);
         footer.add(rightFooterSection, BorderLayout.EAST);
@@ -133,7 +174,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
         header.add(showTopUsern);
 
         this.add(header, BorderLayout.NORTH);
-        this.add(center, BorderLayout.CENTER);
+        this.add(scroll, BorderLayout.CENTER);
         this.add(footer, BorderLayout.SOUTH);
     }
 
@@ -153,27 +194,23 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
             
             String str = input.getText();
 
-            if (str.equals("") == false && input.getText().length() <= 200) {
+            if (str.trim().equals("") == false && input.getText().length() <= 200) {
 
                 System.out.println(str);
                 
                 textContent1 = new JPanel();
                 textContent1.setLayout(null);
-                textContent1.setBackground(Color.decode(colorS));
-                
+                textContent1.setBackground(Color.decode(colorPanel));
                 
                 panels.add(textContent1);
 
-                
-                for (int i = 0; i < panels.size(); i++) {
-                    panels.get(i).setBounds(x, y - (120 * (panels.size() - i)), 700, 100);
-                    if (panels.get(i).getY() <= 0) {
-                        center.remove(panels.get(i));
-                        System.out.println("Panel " + i + " Removed");
-                        System.out.println(panels.get(i).getBounds());
+                    int i = 0;
+                    panels.get(panels.size() - 1).setBounds(x, y + (120 * (panels.size() - i)), 700, 100);
+                    center.setPreferredSize(new Dimension(600, centerY));
+                    if (panels.size() >= 3) {
+                        centerY += 120;
                     }
-                }
-                
+                    i++;
                 
                 if (input.getText().length() >= 40) {
                     System.out.println("Letters: " + input.getText().length());
@@ -200,6 +237,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                     showedText.setSize(700, 50);
                     showedText.setLocation(350, 25);
                     showedText.setText(str);
+                    showedText.setFont(f1);
                     textContent1.add(showedText);
                 }
                 
@@ -218,21 +256,37 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                 textContent1.add(picLabel);
                 textContent1.add(usernLabel);
                 center.add(textContent1);
-            
+
+                
                 input.setText(null);
-
-                this.validate();
-                this.repaint();
-
+                
                 enterCount++;
                 System.out.println("panels size: " + panels.size()); 
+                
+                if (errorLabel != null) {
+                    center.remove(errorLabel);
+                }
             }
 
             else{
+                if (errorLabel == null) {
+                    errorLabel = new JLabel("", SwingConstants.CENTER);
+                }
+                errorLabel.setBounds(250, -10, 200, 50);
+                errorLabel.setForeground(Color.decode("#fe8686"));
+                if (str.trim().equals("")) {
+                    errorLabel.setText("You cant send empty message");
+                }
+                else if (input.getText().length() >= 200) {
+                    
+                    errorLabel.setText("Text is too long");
+                }
+                center.add(errorLabel);
                 input.setText(null);
-                System.out.println("\n Text is too long");
             }
-            
+            this.validate();
+            this.repaint();
+
         }
     }
 
@@ -254,15 +308,15 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
             System.out.println("Image clicked");
         }
 
-        if (e.getSource() == switchUser) {
+        if (e.getSource() == switchUser1 || e.getSource() == switchUser2) {
             System.out.println(isUser1);
             if (isUser1 == true) {
                 setParams(ImgChooser.secondActiveImg, StartFrame.usern2, false);
-                colorS = "#0077b6";
+                colorPanel = "#0077b6";
             }
             else if (isUser1 == false) {
                 setParams(ImgChooser.firstActiveImg, StartFrame.usern1, true);
-                colorS = "#ade8f4";
+                colorPanel = "#ade8f4";
             }
         }
     }
