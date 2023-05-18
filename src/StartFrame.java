@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -8,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.font.TextAttribute;  
 import java.io.Console;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -68,7 +70,7 @@ public class StartFrame extends JFrame implements ActionListener{
         setLayout(2,  251, 290, mainPanel, input2, button2, userLabel2, usern2);
         
         input1 = new JTextField();
-        input1.setBorder(null);
+        input1.setMargin(new Insets(0, 10, 0, 0));
         input1.setBounds(150, 50, 200, 30);
 
         userImg1 = new JLabel();
@@ -78,7 +80,7 @@ public class StartFrame extends JFrame implements ActionListener{
         userImgButton1 = setImgBtn(userImgButton1, "imgBtn1", 165);
         
         input2 = new JTextField();
-        input2.setBorder(null);
+        input2.setMargin(new Insets(0, 10, 0, 0));
         input2.setBounds(150, 250, 200, 30);
 
         userImg2 = new JLabel();
@@ -165,9 +167,7 @@ public class StartFrame extends JFrame implements ActionListener{
     
     JButton getFinalBtn(){
         finalBtn = new JButton();
-        finalBtn.setText("Continue");
-        finalBtn.setFont(font);
-        finalBtn.setBounds(250, 500, 100, 40);
+        setBtnDesign(finalBtn, 500, 250, "Continue");
         finalBtn.addActionListener(this);
         finalBtn.setActionCommand("btn3");
         
@@ -185,6 +185,7 @@ public class StartFrame extends JFrame implements ActionListener{
         button.setBackground(Color.decode("#4685ff"));
         button.setBorder(null);
         button.setForeground(Color.white);
+        button.setFocusPainted(false);
     }
     
     @Override
