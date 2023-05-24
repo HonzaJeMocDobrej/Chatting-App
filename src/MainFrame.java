@@ -22,6 +22,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
     JPanel inputContainer;
     JPanel rightFooterSection;
     JPanel leftFooterSection;
+    JPanel bottomFooterSection;
     JPanel textContent1;
     JPanel textContent;
     
@@ -115,6 +116,12 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
         leftFooterSection.setLayout(null);
         leftFooterSection.setPreferredSize(new Dimension(160, 100));
 
+        bottomFooterSection = new JPanel();
+        bottomFooterSection.setBackground(Color.decode(colorHeadFoot));
+        bottomFooterSection.setLayout(null);
+        bottomFooterSection.setPreferredSize(new Dimension(160, 20));
+        
+
         input = new JTextField();
         input.setPreferredSize(new Dimension(350, 40));
         input.setFont(f1);
@@ -163,6 +170,8 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
             }
         });
 
+        StartFrame.setSignatureLabel(bottomFooterSection, 300, 10);
+
         inputContainer.add(input);
         rightFooterSection.add(switchUser2);
         leftFooterSection.add(switchUser1);
@@ -170,6 +179,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
         footer.add(inputContainer, BorderLayout.CENTER);
         footer.add(rightFooterSection, BorderLayout.EAST);
         footer.add(leftFooterSection, BorderLayout.WEST);
+        footer.add(bottomFooterSection, BorderLayout.SOUTH);
 
         header.add(showTopUsern);
 

@@ -96,10 +96,12 @@ public class StartFrame extends JFrame implements ActionListener{
         warning = new JLabel();
         warning.setText("Username cannot be longer than 13 characters");
         warning.setForeground(Color.white);
-        warning.setBounds(150, 500, 300, 50);
+        warning.setBounds(220, 500, 300, 50);
         warning.setVisible(false);
 
         userImgButton2 = setImgBtn(userImgButton2, "imgBtn2", 380);
+
+        setSignatureLabel(mainPanel, 240, 550);
         
         this.setSize(width, height);
         this.setLocationRelativeTo(null);
@@ -149,13 +151,13 @@ public class StartFrame extends JFrame implements ActionListener{
     }
     
     public void checkBothBtns(){
-        if ((input1.equals("") && usern2.equals(""))
-        ||  (usern1.equals("") && usern2.equals("") == false)
-        ||  (usern1.equals("") == false && usern2.equals(""))
+        if ((usern1.trim().equals("") && usern2.trim().equals(""))
+        ||  (usern1.trim().equals("") && usern2.trim().equals("") == false)
+        ||  (usern1.trim().equals("") == false && usern2.trim().equals(""))
         ){
             // System.out.println("Denied");
         }
-        else{
+        else {
             getFinalBtn();
             System.out.println("Continue");
             
@@ -170,16 +172,30 @@ public class StartFrame extends JFrame implements ActionListener{
         return btn;
     }
 
+    public static JLabel setSignatureLabel(JPanel parent, int x, int y){
+        JLabel signature = new JLabel();
+        signature.setBounds(x, y, 120, 10);
+        signature.setText("Made by Honza Fedor");
+        signature.setForeground(Color.red);
+        signature.setFont(new Font("Poppins.ttf", Font.PLAIN, 10));
+
+        parent.add(signature);
+
+        return signature;
+    }
+
     
     JButton getFinalBtn(){
         if (input1.getText().equals(input2.getText()) && input1.getText().equals("") == false && input2.getText().equals("") == false) {
-            warning.setVisible(true);
-            warning.setText("Cannot have identical usernames");
+            if (finalBtn == null) {
+                warning.setVisible(true);
+                warning.setText("Cannot have identical usernames");
+            }
             input1.setText("");
             input2.setText("");
             return null;
         }
-        else if (input1.getText().equals("") == true && input2.getText().equals("") == true) {
+        else if (input1.getText().trim().equals("") == true && input2.getText().trim().equals("") == true) {
             return null;
         }
         else{
@@ -218,8 +234,10 @@ public class StartFrame extends JFrame implements ActionListener{
             }
             else{
                 input1.setText("");
-                warning.setVisible(true);
-                warning.setText("Username cannot be longer than 13 characters");
+                if (finalBtn == null) {
+                    warning.setVisible(true);
+                    warning.setText("Invalid or long username");
+                }
                 System.out.println("Text is too long");
             }
             System.out.println("Username: " + input1.getText());
@@ -234,8 +252,10 @@ public class StartFrame extends JFrame implements ActionListener{
             }
             else{
                 input2.setText("");
-                warning.setVisible(true);
-                warning.setText("Username cannot be longer than 13 characters");
+                if (finalBtn == null) {
+                    warning.setVisible(true);
+                    warning.setText("Invalid or long username");
+                }
                 System.out.println("Text is too long");
             }
             System.out.println("Username: " + input2.getText());
