@@ -176,7 +176,7 @@ public class StartFrame extends JFrame implements ActionListener{
         JLabel signature = new JLabel();
         signature.setBounds(x, y, 120, 10);
         signature.setText("Made by Honza Fedor");
-        signature.setForeground(Color.red);
+        signature.setForeground(Color.decode("#ff6666"));
         signature.setFont(new Font("Poppins.ttf", Font.PLAIN, 10));
 
         parent.add(signature);
