@@ -1,15 +1,8 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.font.TextAttribute;  
-import java.io.Console;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -155,7 +148,7 @@ public class StartFrame extends JFrame implements ActionListener{
         ||  (usern1.trim().equals("") && usern2.trim().equals("") == false)
         ||  (usern1.trim().equals("") == false && usern2.trim().equals(""))
         ){
-            // System.out.println("Denied");
+            System.out.println("Denied");
         }
         else {
             getFinalBtn();

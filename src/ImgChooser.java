@@ -2,7 +2,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.text.AttributeSet.ColorAttribute;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -10,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;    
 import java.awt.event.WindowListener;
-import java.io.Console;
 
 public class ImgChooser extends JFrame implements WindowListener, MouseListener {
     JLabel img;

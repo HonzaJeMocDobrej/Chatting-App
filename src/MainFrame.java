@@ -1,14 +1,8 @@
 import javax.swing.*;
-import javax.swing.plaf.TreeUI;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-
-import org.w3c.dom.Text;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame implements ActionListener, KeyListener,MouseListener{
@@ -23,7 +17,6 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
     JPanel rightFooterSection;
     JPanel leftFooterSection;
     JPanel bottomFooterSection;
-    JPanel textContent1;
     JPanel textContent;
     
     JLabel showedText;
@@ -154,7 +147,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                 return button;
             }
 
-                @Override
+            @Override
             protected void configureScrollBarColors() {
                 this.thumbColor = Color.decode("#9c9c9c");
             }
@@ -208,11 +201,11 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
                 System.out.println(str);
                 
-                textContent1 = new JPanel();
-                textContent1.setLayout(null);
-                textContent1.setBackground(Color.decode(colorPanel));
+                textContent = new JPanel();
+                textContent.setLayout(null);fina
+                textContent.setBackground(Color.decode(colorPanel));
                 
-                panels.add(textContent1);
+                panels.add(textContent);
 
                     int i = 0;
                     panels.get(panels.size() - 1).setBounds(x, y + (120 * (panels.size() - i)), 700, 100);
@@ -225,20 +218,26 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                 if (input.getText().length() >= 40) {
                     System.out.println("Letters: " + input.getText().length());
                     
-                        String[] chunks = str.split("(?<=\\G.{40})");
+                        String[] test = new String[(input.getText().length() / 40) + 1];
+                        JLabel[] formattedLabels = new JLabel[test.length];
 
-                        for (String string : chunks) {
-                            System.out.println(string);
-                            String formattedText = "<html>" + 
-                            string.replaceAll("\n", "<br>") + "</html>";
-
-                            showedText = new JLabel();
-                            showedText.setSize(700, 50);
-                            showedText.setLocation(350, textY);
-                            showedText.setText(formattedText);
-                            textContent1.add(showedText);
+                        for (int j = 0; j < test.length; j++) {
+                            if (j == test.length - 1) {
+                                test[j] = str.substring(j*40);
+                            }
+                            else{
+                                test[j] = str.substring(j*40, (j+1)*40);
+                            }
+                            formattedLabels[j] = new JLabel();
+                            formattedLabels[j].setText(test[j]);
+                            formattedLabels[j].setSize(700, 50);
+                            formattedLabels[j].setLocation(350, textY);
+                            textContent.add(formattedLabels[j]);
+                            System.out.println(test[j]);
+                            System.out.println(j*40);
                             textY += 15;
-                    }
+                        }
+
                     textY = 0;
                 }
 
@@ -247,8 +246,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                     showedText.setSize(700, 50);
                     showedText.setLocation(350, 25);
                     showedText.setText(str);
-                    showedText.setFont(f1);
-                    textContent1.add(showedText);
+                    textContent.add(showedText);
                 }
                 
                 picLabel = new JLabel();
@@ -262,10 +260,9 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                 usernLabel.setSize(180, 50);
                 usernLabel.setLocation(170, 23);
 
-                textContent1.add(showedText);
-                textContent1.add(picLabel);
-                textContent1.add(usernLabel);
-                center.add(textContent1);
+                textContent.add(picLabel);
+                textContent.add(usernLabel);
+                center.add(textContent);
 
                 
                 input.setText(null);
@@ -309,7 +306,6 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
@@ -344,12 +340,10 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
     
 }
