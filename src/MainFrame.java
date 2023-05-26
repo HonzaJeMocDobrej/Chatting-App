@@ -202,7 +202,7 @@ public class MainFrame extends JFrame implements ActionListener, KeyListener,Mou
                 System.out.println(str);
                 
                 textContent = new JPanel();
-                textContent.setLayout(null);fina
+                textContent.setLayout(null);
                 textContent.setBackground(Color.decode(colorPanel));
                 
                 panels.add(textContent);
